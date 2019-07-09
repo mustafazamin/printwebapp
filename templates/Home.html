@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Starprint</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/Linearicons-Free-v1.0.0/icon-font.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animsition/css/animsition.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/daterangepicker/daterangepicker.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+<!--===============================================================================================-->
+</head>
+<body>
+
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100 p-t-50">
+				<span class="login100-form-title p-b-51">
+					Home
+				</span>
+
+				<div class="m-b-15" style="fonts/Linearicons/ubuntu/Ubuntu-Italic.ttf">
+       				{% for message in messages %}
+    					<b>{{message}}</b>
+    				{% endfor %}
+				</div>
+
+				<div class="container">
+					<div class="item-a">
+						<form action="{% url 'connect' %}">
+							<div class="container-login100-form-btn">
+								<button class="login100-form-btn" >
+									Connect
+								</button>
+        					</div>
+						</form>
+					</div>
+					<div class="item-b">
+						<div class="container-login100-form-btn">
+							<form action="{% url 'disconnect' %}">
+								<button class="login100-form-btn" >
+									Disconnect
+								</button>
+							</form>
+        				</div>
+					</div>
+					<div class="item-c">
+						<div class="container-login100-form-btn">
+							<form action="{% url 'select' %}">
+								<button class="login100-form-btn" >
+									Select
+								</button>
+							</form>
+        				</div>
+					</div>
+					<div class="item-d">
+						<div class="container-login100-form-btn">
+							<form action="{% url 'start' %}">
+								<button class="login100-form-btn" >
+									Start
+								</button>
+							</form>
+        				</div>
+					</div>
+					<div class="item-e">
+						<div class="container-login100-form-btn">
+							<form action="{% url 'pause' %}">
+								<button class="login100-form-btn" >
+									Pause
+								</button>
+							</form>
+        				</div>
+					</div>
+					
+					<div class="item-f">
+						<div class="container-login100-form-btn">
+							<form action="{% url 'resume' %}">
+								<button class="login100-form-btn" >
+									Resume
+								</button>
+							</form>
+        				</div>
+					</div>
+
+					<div class="item-g">
+						<div class="container-login100-form-btn">
+							<form action="{% url 'cancel' %}">
+								<button class="login100-form-btn" >
+									Cancel
+								</button>
+							</form>
+        				</div>
+					</div>
+
+					<div class="item-h">
+						<div class="container-login100-form-btn">
+							<form action="{% url 'logout' %}">
+								<button class="login100-form-btn" >
+									Logout
+								</button>
+							</form>
+        				</div>
+					</div>
+
+				</div>
+
+
+				
+			</div>
+		</div>
+	</div>
+	
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/animsition/js/animsition.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/select2/select2.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/daterangepicker/moment.min.js' %}"></script>
+	<script src="{% static 'vendor/daterangepicker/daterangepicker.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/countdowntime/countdowntime.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'js/main.js' %}"></script>
+
+</body>
+</html>
