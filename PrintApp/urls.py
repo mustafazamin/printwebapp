@@ -12,4 +12,5 @@ urlpatterns = [
     path("resume", views.resume, name="resume"),
     path("cancel", views.cancel, name="cancel"),
     path("logout", views.logout, name = "logout"),
+    path("upload", views.upload, name = "upload"),
 ]

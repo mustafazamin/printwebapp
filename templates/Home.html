@@ -38,7 +38,7 @@
 					Home
 				</span>
 
-				<div class="m-b-15" style="fonts/Linearicons/ubuntu/Ubuntu-Italic.ttf">
+				<div class="m-b-15"  style="fonts/Linearicons/ubuntu/Ubuntu-Italic.ttf; margin-left:30px;">
        				{% for message in messages %}
     					<b>{{message}}</b>
     				{% endfor %}
@@ -116,6 +116,18 @@
 							<form action="{% url 'logout' %}">
 								<button class="login100-form-btn" >
 									Logout
+								</button>
+							</form>
+        				</div>
+					</div>
+
+					<div class="item-j">
+						<div class="container-login100-form-btn">
+							<form action="{% url 'upload' %}" enctype="multipart/form-data" method="POST">
+								{% csrf_token %}
+								<input type="file" name="gfile"/>
+								<button class="login100-form-btn" >
+									Upload
 								</button>
 							</form>
         				</div>
