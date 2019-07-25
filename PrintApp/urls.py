@@ -13,4 +13,6 @@ urlpatterns = [
     path("cancel", views.cancel, name="cancel"),
     path("logout", views.logout, name = "logout"),
     path("upload", views.upload, name = "upload"),
+    path("GetFiles", views.GetFiles, name = "GetFiles"),
+    path("home_coming", views.home_coming, name = "home_coming"),
 ]

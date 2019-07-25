@@ -394,6 +394,14 @@ iframe {
   grid-area: files;
 }
 
+.item-k {
+  grid-area: getFiles;
+}
+
+.item-l {
+  grid-area: home;
+}
+
 
 
 .container {
@@ -413,6 +421,8 @@ iframe {
     "cancel"
     "upload"
     "files"
+    "getFiles"
+    "home"
     "logout";
 }
 

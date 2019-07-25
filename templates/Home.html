@@ -5,6 +5,7 @@
 	<title>Starprint</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
 <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
 <!--===============================================================================================-->
@@ -27,6 +28,90 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 <!--===============================================================================================-->
+
+	<script>
+		function stateupdates(){
+			const textState = document.getElementById("state")
+
+			setInterval(function(){
+				var url = 'http://192.168.1.53/api/connection?apikey='
+				var key = 'EB9B26499B6E49609D1EF1C1A6680985'
+
+				fetch(url.concat(key)).then(function(response){
+					return response.json()
+				}).then(function(data){
+					textState.textContent = data.current.state;
+
+				}).catch(function(error){
+					console.log(error);
+				});
+			},1000);
+		}
+
+		document.addEventListener('DOMContentLoaded', function(){
+			stateupdates();
+		});
+
+	</script>
+
+	<script>
+		function _(el) {
+		return document.getElementById(el);
+		}
+
+		var csrfcookie = function() {
+			var cookieValue = null,
+				name = 'csrftoken';
+			if (document.cookie && document.cookie !== '') {
+				var cookies = document.cookie.split(';');
+				for (var i = 0; i < cookies.length; i++) {
+					var cookie = cookies[i].trim();
+					if (cookie.substring(0, name.length + 1) == (name + '=')) {
+						cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+						break;
+					}
+				}
+			}
+			return cookieValue;
+		};
+
+		function uploadFile() {
+		var file = _("gfile").files[0];
+		// alert(file.name+" | "+file.size+" | "+file.type);
+		var formdata = new FormData();
+		formdata.append("gfile", file);
+		var ajax = new XMLHttpRequest();
+		ajax.upload.addEventListener("progress", progressHandler, false);
+		ajax.addEventListener("load", completeHandler, false);
+		ajax.addEventListener("error", errorHandler, false);
+		ajax.addEventListener("abort", abortHandler, false);
+		ajax.open("POST", "{% url 'upload' %}"); 
+		ajax.setRequestHeader('X-CSRFToken', csrfcookie());
+		// http://www.developphp.com/video/JavaScript/File-Upload-Progress-Bar-Meter-Tutorial-Ajax-PHP
+		//use file_upload_parser.php from above url
+		ajax.send(formdata);
+		}
+
+		function progressHandler(event) {
+		_("loaded_n_total").innerHTML = "Uploaded " + event.loaded + " bytes of " + event.total;
+		var percent = (event.loaded / event.total) * 100;
+		_("progressBar").value = Math.round(percent);
+		_("status").innerHTML = Math.round(percent) + "% uploaded... please wait";
+		}
+
+		function completeHandler(event) {
+		_("status").innerHTML = event.target.responseText;
+		_("progressBar").value = 0; //wil clear progress bar after successful upload
+		}
+
+		function errorHandler(event) {
+		_("status").innerHTML = "Upload Failed";
+		}
+
+		function abortHandler(event) {
+		_("status").innerHTML = "Upload Aborted";
+		}
+	</script>
 </head>
 <body>
 
@@ -38,100 +123,87 @@
 					Home
 				</span>
 
+
+				<div class="m-b-15"  style="fonts/Linearicons/ubuntu/Ubuntu-Italic.ttf; margin-left:30px;">
+					<b>State: <strong id="state">...</strong></b>
+				</div>
+
 				<div class="m-b-15"  style="fonts/Linearicons/ubuntu/Ubuntu-Italic.ttf; margin-left:30px;">
        				{% for message in messages %}
-    					<b>{{message}}</b>
+    					<b>Message : {{message}}</b>
     				{% endfor %}
 				</div>
 
 				<div class="container">
 					<div class="item-a">
-						<form action="{% url 'connect' %}">
-							<div class="container-login100-form-btn">
-								<button class="login100-form-btn" >
-									Connect
-								</button>
-        					</div>
-						</form>
+						<button class="login100-form-btn" onclick="location.href='{% url 'connect' %}'">
+							Connect
+						</button>
 					</div>
 					<div class="item-b">
-						<div class="container-login100-form-btn">
-							<form action="{% url 'disconnect' %}">
-								<button class="login100-form-btn" >
-									Disconnect
-								</button>
-							</form>
-        				</div>
+						<button class="login100-form-btn" onclick="location.href='{% url 'disconnect' %}'">
+							Disconnect
+						</button>
 					</div>
 					<div class="item-c">
-						<div class="container-login100-form-btn">
-							<form action="{% url 'select' %}">
-								<button class="login100-form-btn" >
-									Select
-								</button>
-							</form>
-        				</div>
+						<button class="login100-form-btn" onclick="location.href='{% url 'select' %}'">
+							Select
+						</button>
 					</div>
 					<div class="item-d">
-						<div class="container-login100-form-btn">
-							<form action="{% url 'start' %}">
-								<button class="login100-form-btn" >
-									Start
-								</button>
-							</form>
-        				</div>
+						<button class="login100-form-btn" onclick="location.href='{% url 'start' %}'">
+							Start
+						</button>
 					</div>
 					<div class="item-e">
-						<div class="container-login100-form-btn">
-							<form action="{% url 'pause' %}">
-								<button class="login100-form-btn" >
-									Pause
-								</button>
-							</form>
-        				</div>
+						<button class="login100-form-btn" onclick="location.href='{% url 'pause' %}'">
+							Pause
+						</button>
 					</div>
 					
 					<div class="item-f">
-						<div class="container-login100-form-btn">
-							<form action="{% url 'resume' %}">
-								<button class="login100-form-btn" >
-									Resume
-								</button>
-							</form>
-        				</div>
+						<button class="login100-form-btn" onclick="location.href='{% url 'resume' %}'">
+							Resume
+						</button>
 					</div>
 
 					<div class="item-g">
-						<div class="container-login100-form-btn">
-							<form action="{% url 'cancel' %}">
-								<button class="login100-form-btn" >
-									Cancel
-								</button>
-							</form>
-        				</div>
+						<button class="login100-form-btn" onclick="location.href='{% url 'cancel' %}'">
+							Cancel
+						</button>
 					</div>
 
 					<div class="item-h">
-						<div class="container-login100-form-btn">
-							<form action="{% url 'logout' %}">
-								<button class="login100-form-btn" >
-									Logout
-								</button>
-							</form>
-        				</div>
+						<button class="login100-form-btn" onclick="location.href='{% url 'logout' %}'">
+						Logout
+						</button>
 					</div>
 
 					<div class="item-j">
 						<div class="container-login100-form-btn">
-							<form action="{% url 'upload' %}" enctype="multipart/form-data" method="POST">
+							<form id="upload_form" enctype="multipart/form-data" method="POST">
 								{% csrf_token %}
-								<input type="file" name="gfile"/>
-								<button class="login100-form-btn" >
+								<input type="file" name="gfile" id="gfile" onchange="uploadFile()"><br>
+								<progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+								<p style="fonts/Linearicons/ubuntu/Ubuntu-Italic.ttf; color:black;" id="status"></p>
+								<!--button class="login100-form-btn" >
 									Upload
-								</button>
+								</button-->
 							</form>
         				</div>
 					</div>
+					
+					<div class="item-k">	
+						<button class="login100-form-btn" onclick="location.href='{% url 'GetFiles' %}'">
+							Get files
+						</button>	
+					</div>
+
+					<div class="item-l">
+						<button class="fa fa-home" onclick="location.href='{% url 'home_coming' %}'"/>
+					</div>
+
+					
 
 				</div>
 
@@ -140,6 +212,8 @@
 			</div>
 		</div>
 	</div>
+
+	
 	
 <!--===============================================================================================-->
 	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
